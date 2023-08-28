@@ -18,7 +18,7 @@
             </v-expansion-panel-content>
           </v-expansion-panel>
         </v-expansion-panels>
-        <v-text-field  color=black large :label="labelText" v-model="search" @change="newSearch()" style="padding-left: 10px;"></v-text-field>
+        <v-autocomplete color=black large :label="labelText" v-model="search" :items="items" @change="newSearch()" style="padding-left: 10px;"></v-autocomplete>
       </div>
       <v-row v-if="showName">
         <v-col>
@@ -57,6 +57,7 @@
     data:()=>({
       operators: [],
       operatorsShown: [],
+      operatorsAll: [],
       page: 1,
       type: 'operator/',
       show: false,
@@ -64,7 +65,15 @@
       overlay: false,
       labelText: 'Search by Name',
       search: '',
+      items: [],
+      names: [],
+      classes: ['Vanguard', 'Guard', 'Defender', 'Sniper', 'Caster', 'Medic', 'Supporter', 'Specialist'],
+      rarity: ['6', '5', '4', '3', '2', '1']
     }),
+
+    mounted (){
+      this.dohvatiImena()
+    },
   
     methods:{
       newSearch: function(){
@@ -82,14 +91,27 @@
       searchName: function(){
         this.type='operator/'
         this.labelText='Search by Name'
+        this.items=this.names
       },
       searchClass: function(){
         this.type='search?class='
         this.labelText='Search by Class'
+        this.items=this.classes
       },
       searchRarity: function(){
         this.type='search?rarity='
         this.labelText='Search by Rarity'
+        this.items=this.rarity
+      },
+      dohvatiImena: function(){
+        this.axios.get('https://rhodesapi.up.railway.app/api/operator').then((response) => {
+          this.operatorsAll=response.data
+          this.operatorsAll=this.operatorsAll.sort((a, b) => a.name > b.name ? 1 : -1)
+          for (let i=0; i<this.operatorsAll.length; i++){
+            this.names[i]=this.operatorsAll[i].name
+          }
+          this.items=this.names
+        })
       },
 
       dohvatiAPI: function(){
