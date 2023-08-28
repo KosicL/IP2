@@ -97,6 +97,7 @@
           .then((response) => {
             console.log(response.data)
             this.operators=response.data
+            this.page=1
             this.newPage()
           })
           .catch((error) => {
