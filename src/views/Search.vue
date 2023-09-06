@@ -77,14 +77,22 @@
   
     methods:{
       newSearch: function(){
-        this.dohvatiAPI()
-        if (this.labelText=='Search by Name'){
+        if(this.search==null){
+          this.show=true
+          this.showName=false
+          this.operators=this.operatorsAll
+          this.page=1
+          this.newPage()
+        }
+        else if (this.labelText=='Search by Name'){
           this.show=false
           this.showName=true
+          this.dohvatiAPI()
         }
         else{
           this.show=true
           this.showName=false
+          this.dohvatiAPI()
         }
       },
 
