@@ -6,7 +6,7 @@
     max-width="374"
     dark
     style="padding: 30px;">
-        <v-img :src="operator.art[0].link" eager style="height: 250px; width: fit-content;"></v-img>
+        <v-img :src="operator.art[0].link" :lazy-src="operator.art[0].link" eager style="height: 250px; width: fit-content;"></v-img>
         <v-card-title class="card_title" style="padding-bottom: 5px; justify-content: center;"><h5>{{ operator.name }}</h5></v-card-title>
         <v-card-title style="padding: 0px; padding-bottom: 5px; justify-content: center;">
         <div v-for="n in operator.rarity" :key="n"><v-img src="https://gamepress.gg/sites/arknights/files/2019-10/star.png"></v-img></div></v-card-title>
